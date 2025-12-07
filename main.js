@@ -27,7 +27,7 @@ const workload = [10, 20, 30, 40];
 
 /**
  * Vyberie náhodnú položku z poľa.
- * @param {Array} 
+ * @param {Array} arr - vstupnevoprekrpvo
  * @returns {*} - random číslo
  */
 function pickRandom(arr) {
@@ -37,8 +37,8 @@ function pickRandom(arr) {
 
 /**
  * Vygeneruje náhodný dátum v rozsahu.
- * @param {Date} 
- * @param {Date} 
+ * @param {Date} minDate -freref
+ * @param {Date} maxDate -fefvev
  * @returns {string} - ISO dátum
  */
 function generateRandomDate(minDate, maxDate) {
@@ -48,8 +48,8 @@ function generateRandomDate(minDate, maxDate) {
 
 /**
  * Vytvorí jednu osobu.
- * @param {Date} 
- * @param {Date} 
+ * @param {Date} minDate -cwfcwecew
+ * @param {Date} maxDate -evewvewr
  * @returns {object} - vytvorenie osoby
  */
 function generatePerson(minDate, maxDate) {
