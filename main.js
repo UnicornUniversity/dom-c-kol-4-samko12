@@ -27,8 +27,8 @@ const workload = [10, 20, 30, 40];
 
 /**
  * Vyberie náhodnú položku z poľa.
- * @param {Array} arr
- * @returns {*}
+ * @param {Array} 
+ * @returns {*} - random číslo
  */
 function pickRandom(arr) {
   const index = Math.floor(Math.random() * arr.length);
@@ -37,9 +37,9 @@ function pickRandom(arr) {
 
 /**
  * Vygeneruje náhodný dátum v rozsahu.
- * @param {Date} minDate
- * @param {Date} maxDate
- * @returns {string} ISO dátum
+ * @param {Date} 
+ * @param {Date} 
+ * @returns {string} - ISO dátum
  */
 function generateRandomDate(minDate, maxDate) {
   const ts = minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime());
@@ -48,9 +48,9 @@ function generateRandomDate(minDate, maxDate) {
 
 /**
  * Vytvorí jednu osobu.
- * @param {Date} minDate
- * @param {Date} maxDate
- * @returns {object}
+ * @param {Date} 
+ * @param {Date} 
+ * @returns {object} - vytvorenie osoby
  */
 function generatePerson(minDate, maxDate) {
   return {
@@ -65,7 +65,7 @@ function generatePerson(minDate, maxDate) {
 /**
  * Generovanie zamestnancov.
  * @param {object} dtoIn - vstupné parametre
- * @returns {{people: Array, workloadStats: object}}
+ * @returns {{people: Array, workloadStats: object}} - generovanie zamestnancov
  */
 export function main(dtoIn) {
   const today = new Date();
