@@ -1,3 +1,30 @@
+const dtoIn = {
+  count: 6,
+  age: {
+    min: 19,
+    max: 35,
+  },
+};
+
+const names = [
+  "Jan","Petr","Pavel","Martin","Tomáš","Jakub","Lukáš","Jiří","David","Josef",
+  "Adam","Matěj","Filip","Václav","Daniel","Marek","Jaroslav","Štěpán","Ondřej","Karel",
+  "Vojtěch","Michal","Roman","Zdeněk","Radek","Oldřich","Robert","Aleš","Milan","Richard",
+  "Tereza","Anna","Eliška","Karolína","Adéla","Kristýna","Natálie","Veronika","Markéta","Barbora",
+  "Lucie","Klára","Kateřina","Nikola","Monika","Gabriela","Simona","Alena","Iveta","Jana"
+];
+
+const surnames = [
+  "Novák","Svoboda","Novotný","Dvořák","Černý","Procházka","Kučera","Veselý","Horák","Němec",
+  "Mareš","Pospíšil","Hájek","Jelínek","Král","Růžička","Beneš","Fiala","Sedláček","Doležal",
+  "Zeman","Urban","Vaněk","Kolář","Štěpánek","Polák","Kříž","Pokorný","Konečný","Malý",
+  "Kovář","Bláha","Strnad","Holý","Soukup","Matoušek","Tichý","Hlaváček","Kočí","Bečka",
+  "Suchý","Zajíček","Pazdera","Leoš","Staňek","Burda","Mašek","Čížek","Stehlík","Gregor"
+];
+
+const gender = ["male", "female"];
+const workload = [10, 20, 30, 40];
+
 /**
  * Vyberie náhodnú položku z poľa.
  * @param {Array} arr
@@ -61,3 +88,6 @@ export function main(dtoIn) {
 
   return { people, workloadStats };
 }
+
+// Test výstupu
+console.log(main(dtoIn));
