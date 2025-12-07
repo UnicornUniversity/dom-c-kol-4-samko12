@@ -1,5 +1,5 @@
 /**
- * Vstupný príklad (použite svoj dtoIn pri testovaní).
+ * Vstupný príklad
  */
 const dtoIn = {
   count: 6,
@@ -9,15 +9,14 @@ const dtoIn = {
   },
 };
 
-const names = [ ... ];      // nechávam skrátené
-const surnames = [ ... ];
+// Minimálne hodnoty, aby pickRandom fungoval bez chyby
+const names = ["Jan", "Peter", "Maria", "Lucia"];
+const surnames = ["Novak", "Hrasko", "Mrkvicka", "Smetanova"];
 const genders = ["male", "female"];
 const workloads = [10, 20, 30, 40];
 
 /**
  * Vyberie náhodnú položku z poľa.
- * @param {Array} arr - Pole, z ktorého sa vyberá náhodný prvok.
- * @returns {*} Náhodný prvok z poľa.
  */
 function pickRandom(arr) {
   const idx = Math.floor(Math.random() * arr.length);
@@ -26,19 +25,16 @@ function pickRandom(arr) {
 
 /**
  * Vráti náhodný ISO dátum medzi minDate a maxDate.
- * @param {Date} minDate - Dolná hranica dátumu.
- * @param {Date} maxDate - Horná hranica dátumu.
- * @returns {string} Náhodný ISO dátum.
  */
 function generateRandomDate(minDate, maxDate) {
-  const ts = minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime());
+  const ts =
+    minDate.getTime() +
+    Math.random() * (maxDate.getTime() - minDate.getTime());
   return new Date(ts).toISOString();
 }
 
 /**
- * Vygeneruje pole zamestnancov.
- * @param {object} dtoIn - Vstupné parametre (count, min/max age).
- * @returns {Array<object>} Pole zamestnancov.
+ * Vygeneruje zamestnancov.
  */
 export function generateEmployeeData(dtoIn) {
   const people = [];
@@ -63,9 +59,7 @@ export function generateEmployeeData(dtoIn) {
 }
 
 /**
- * Spočíta medián zo zoznamu čísel.
- * @param {Array<number>} arr - Pole čísel.
- * @returns {number|null} Medián alebo null.
+ * Medián.
  */
 function median(arr) {
   if (!arr.length) return null;
@@ -75,10 +69,7 @@ function median(arr) {
 }
 
 /**
- * Vypočíta desatinný vek.
- * @param {string} birthdateIso - ISO dátum narodenia.
- * @param {Date} today - Referenčný dátum.
- * @returns {number} Vek v rokoch.
+ * Desatinný vek.
  */
 function computeAgeDecimal(birthdateIso, today) {
   const birth = new Date(birthdateIso);
@@ -87,9 +78,7 @@ function computeAgeDecimal(birthdateIso, today) {
 }
 
 /**
- * Vypočíta počet zamestnancov podľa workloadov.
- * @param {Array<object>} employees - Zoznam zamestnancov.
- * @returns {{10:number,20:number,30:number,40:number}} Počty workloadov.
+ * Počty workloadov.
  */
 function getWorkloadCounts(employees) {
   const out = { 10: 0, 20: 0, 30: 0, 40: 0 };
@@ -98,13 +87,16 @@ function getWorkloadCounts(employees) {
 }
 
 /**
- * Vypočíta vekové štatistiky.
- * @param {Array<number>} ages - Zoznam vekov.
- * @returns {object} age štatistiky.
+ * Vekové štatistiky.
  */
 function getAgeStats(ages) {
   if (!ages.length)
-    return { averageAge: 0, minAge: null, maxAge: null, medianAge: null };
+    return {
+      averageAge: 0,
+      minAge: null,
+      maxAge: null,
+      medianAge: null,
+    };
 
   const sum = ages.reduce((a, b) => a + b, 0);
   return {
@@ -116,13 +108,13 @@ function getAgeStats(ages) {
 }
 
 /**
- * Vypočíta workload štatistiky.
- * @param {Array<object>} employees - Zoznam zamestnancov.
- * @returns {object} workload štatistiky.
+ * Workload štatistiky.
  */
 function getWorkloadStats(employees) {
-  const workloads = employees.map(e => e.workload);
-  const women = employees.filter(e => e.gender === "female").map(e => e.workload);
+  const workloads = employees.map((e) => e.workload);
+  const women = employees
+    .filter((e) => e.gender === "female")
+    .map((e) => e.workload);
 
   const mw = median(workloads);
   const medWorkload = mw !== null ? Math.round(mw) : null;
@@ -133,18 +125,21 @@ function getWorkloadStats(employees) {
     avgWomen = Number(avg.toFixed(1));
   }
 
-  return { medianWorkload: medWorkload, averageWomenWorkload: avgWomen };
+  return {
+    medianWorkload: medWorkload,
+    averageWomenWorkload: avgWomen,
+  };
 }
 
 /**
- * Spočíta štatistiky zamestnancov.
- * @param {Array<object>} employees - Zoznam zamestnancov.
- * @returns {object} Kompletné štatistiky.
+ * Výpočet štatistík.
  */
 export function getEmployeeStatistics(employees) {
   const today = new Date();
 
-  const ages = employees.map(e => computeAgeDecimal(e.birthdate, today));
+  const ages = employees.map((e) =>
+    computeAgeDecimal(e.birthdate, today)
+  );
   const ageStats = getAgeStats(ages);
   const workloadCounts = getWorkloadCounts(employees);
   const workloadStats = getWorkloadStats(employees);
@@ -154,19 +149,19 @@ export function getEmployeeStatistics(employees) {
     ...workloadCounts,
     ...ageStats,
     ...workloadStats,
-    sortedByWorkload: employees.slice().sort((a, b) => a.workload - b.workload),
+    sortedByWorkload: employees
+      .slice()
+      .sort((a, b) => a.workload - b.workload),
   };
 }
 
 /**
  * Hlavná funkcia.
- * @param {object} dtoIn - Vstupné dáta.
- * @returns {object} Štatistiky.
  */
 export function main(dtoIn) {
   const e = generateEmployeeData(dtoIn);
   return getEmployeeStatistics(e);
 }
 
-// test
+// Testovací výpis
 console.log(main(dtoIn));
