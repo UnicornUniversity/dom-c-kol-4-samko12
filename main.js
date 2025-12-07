@@ -1,5 +1,5 @@
 /**
- * Vstupný príklad
+ * Príklad vstupných dát pre demonštráciu funkcie.
  */
 const dtoIn = {
   count: 6,
@@ -12,8 +12,9 @@ const genders = ["male", "female"];
 const workloads = [10, 20, 30, 40];
 
 /**
- * @param {Array} arr
- * @returns {*}
+ * Vráti náhodný prvok z daného poľa.
+ * @param {Array} arr - Pole, z ktorého sa vyberá náhodný prvok.
+ * @returns {*} Náhodný prvok z poľa.
  */
 function pickRandom(arr) {
   const idx = Math.floor(Math.random() * arr.length);
@@ -21,9 +22,10 @@ function pickRandom(arr) {
 }
 
 /**
- * @param {Date} minDate
- * @param {Date} maxDate
- * @returns {string}
+ * Generuje náhodný dátum v ISO formáte medzi dvoma dátumami.
+ * @param {Date} minDate - Dolná hranica rozsahu dátumu.
+ * @param {Date} maxDate - Horná hranica rozsahu dátumu.
+ * @returns {string} Náhodný dátum vo formáte ISO string.
  */
 function generateRandomDate(minDate, maxDate) {
   const ts = minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime());
@@ -31,8 +33,9 @@ function generateRandomDate(minDate, maxDate) {
 }
 
 /**
- * @param {object} dtoIn
- * @returns {Array<object>}
+ * Generuje zoznam zamestnancov podľa vstupných parametrov.
+ * @param {object} dtoIn - Vstupné parametre generovania (počet, vekový rozsah).
+ * @returns {Array<object>} Zoznam vygenerovaných zamestnancov.
  */
 export function generateEmployeeData(dtoIn) {
   const people = [];
@@ -58,8 +61,9 @@ export function generateEmployeeData(dtoIn) {
 }
 
 /**
- * @param {Array<number>} arr
- * @returns {number|null}
+ * Vypočíta medián z poľa čísel.
+ * @param {Array<number>} arr - Pole čísel, z ktorého sa počíta medián.
+ * @returns {number|null} Medián hodnôt alebo null pri prázdnom poli.
  */
 function median(arr) {
   if (!arr.length) return null;
@@ -69,9 +73,10 @@ function median(arr) {
 }
 
 /**
- * @param {string} birthdateIso
- * @param {Date} today
- * @returns {number}
+ * Vypočíta desatinný vek podľa dátumu narodenia.
+ * @param {string} birthdateIso - ISO dátum narodenia.
+ * @param {Date} today - Referenčný dátum pre výpočet veku.
+ * @returns {number} Desatinný vek v rokoch.
  */
 function computeAgeDecimal(birthdateIso, today) {
   const birth = new Date(birthdateIso);
@@ -80,21 +85,25 @@ function computeAgeDecimal(birthdateIso, today) {
 }
 
 /**
- * @param {Array<object>} employees
- * @returns {object}
+ * Spočíta počty workloadov v podobe workload10, workload20, workload30, workload40.
+ * @param {Array<object>} employees - Zoznam zamestnancov.
+ * @returns {object} Objekt s počtami jednotlivých workload hodnôt.
  */
 function getWorkloadCounts(employees) {
   const out = { workload10: 0, workload20: 0, workload30: 0, workload40: 0 };
 
   for (const p of employees) {
-    out["workload" + p.workload]++;
+    const key = "workload" + p.workload;
+    out[key]++;
   }
+
   return out;
 }
 
 /**
- * @param {Array<number>} ages
- * @returns {object}
+ * Vygeneruje štatistiky veku zamestnancov.
+ * @param {Array<number>} ages - Zoznam vekov zamestnancov.
+ * @returns {object} Objekt s vekovými štatistikami.
  */
 function getAgeStats(ages) {
   if (!ages.length)
@@ -111,26 +120,28 @@ function getAgeStats(ages) {
 }
 
 /**
- * @param {Array<object>} employees
- * @returns {object}
+ * Vypočíta štatistiky workloadov, vrátane mediánu a priemeru workloadu žien.
+ * @param {Array<object>} employees - Zoznam zamestnancov.
+ * @returns {object} Objekt s workload štatistikami.
  */
 function getWorkloadStats(employees) {
   const workloads = employees.map(e => e.workload);
   const women = employees.filter(e => e.gender === "female").map(e => e.workload);
 
-  const medianWorkload = median(workloads) !== null ? Math.round(median(workloads)) : null;
+  const medWorkload = median(workloads) !== null ? Math.round(median(workloads)) : null;
 
   let avgWomen = null;
   if (women.length > 0) {
     avgWomen = Number((women.reduce((a, b) => a + b, 0) / women.length).toFixed(1));
   }
 
-  return { medianWorkload, averageWomenWorkload: avgWomen };
+  return { medianWorkload: medWorkload, averageWomenWorkload: avgWomen };
 }
 
 /**
- * @param {Array<object>} employees
- * @returns {object}
+ * Vytvorí kompletné štatistiky zamestnancov.
+ * @param {Array<object>} employees - Zoznam zamestnancov.
+ * @returns {object} Objekt obsahujúci všetky požadované štatistiky.
  */
 export function getEmployeeStatistics(employees) {
   const today = new Date();
@@ -164,8 +175,9 @@ export function getEmployeeStatistics(employees) {
 }
 
 /**
- * @param {object} dtoIn
- * @returns {object}
+ * Hlavná riadiaca funkcia projektu – generuje dáta a vypočíta ich štatistiky.
+ * @param {object} dtoIn - Vstupné parametre generovania.
+ * @returns {object} Kompletné štatistiky zamestnancov.
  */
 export function main(dtoIn) {
   const employees = generateEmployeeData(dtoIn);
