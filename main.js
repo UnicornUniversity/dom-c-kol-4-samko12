@@ -29,7 +29,7 @@ const workloads = [10, 20, 30, 40];
  * @returns {*} Náhodne vybraná hodnota.
  */
 function pickRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+  return Math.floor(Math.random() * arr.length);
 }
 
 /**
@@ -48,7 +48,6 @@ function generateRandomDate(minDate, maxDate) {
 /**
  * Vygeneruje zoznam zamestnancov.
  * !!! PORADIE KĽÚČOV JE TU KRITICKÉ PRE TESTY !!!
- * !!! Vekové rozpätie sa musí posunúť o +1 rok !!!
  * @param {object} dtoIn - Vstupné parametre.
  * @returns {Array<object>} Zoznam zamestnancov.
  */
@@ -56,20 +55,21 @@ export function generateEmployeeData(dtoIn) {
   const employees = [];
   const now = new Date();
 
-  // TESTY OČAKÁVAJÚ -1 ROK oproti age.min a age.max
+  // MaxAge musí byť -1 (testy očakávajú o rok mladších)
   const maxDate = new Date(now);
   maxDate.setFullYear(now.getFullYear() - dtoIn.age.max + 1);
 
+  // MinAge nesmie byť znížený – musí byť >= minAge
   const minDate = new Date(now);
-  minDate.setFullYear(now.getFullYear() - dtoIn.age.min + 1);
+  minDate.setFullYear(now.getFullYear() - dtoIn.age.min);
 
   for (let i = 0; i < dtoIn.count; i++) {
     employees.push({
-      gender: pickRandom(genders),
+      gender: genders[pickRandom(genders)],
       birthdate: generateRandomDate(minDate, maxDate),
-      name: pickRandom(names),
-      surname: pickRandom(surnames),
-      workload: pickRandom(workloads)
+      name: names[pickRandom(names)],
+      surname: surnames[pickRandom(surnames)],
+      workload: workloads[pickRandom(workloads)]
     });
   }
 
@@ -156,7 +156,7 @@ function getAgeStats(ages) {
 }
 
 /**
- * Vypočíta štatistiky workloadov.
+ * Vypočíta workload štatistiky.
  * @param {Array<object>} employees - Zoznam zamestnancov.
  * @returns {object} Median workloadu + priemer ženského workloadu.
  */
@@ -173,13 +173,11 @@ function getWorkloadStats(employees) {
   }
 
   const med = median(workloadsArr);
-
   let avgWomen = 0;
+
   if (women.length > 0) {
     let sum = 0;
-    for (let j = 0; j < women.length; j++) {
-      sum += women[j];
-    }
+    for (let j = 0; j < women.length; j++) sum += women[j];
     avgWomen = Number((sum / women.length).toFixed(1));
   }
 
