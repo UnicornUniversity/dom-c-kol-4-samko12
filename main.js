@@ -18,8 +18,6 @@ const genders = ["male", "female"];
 const workloads = [10, 20, 30, 40];
 
 /**
- * Pomocná funkcia – median z číselného poľa.
- * Rovnaká logika ako v HelperFunctions.median.
  * @param {number[]} numbers
  * @returns {number}
  */
@@ -36,7 +34,7 @@ function median(numbers) {
 }
 
 /**
- * Vygeneruje zoznam zamestnancov podľa dtoIn.
+ * Vygeneruje zoznam zamestnancov.
  * @param {{count:number, age:{min:number,max:number}}} dtoIn
  * @returns {Array<{name:string,surname:string,gender:string,workload:number,birthdate:string}>}
  */
@@ -52,7 +50,6 @@ export function generateEmployeeData(dtoIn) {
   const minDate = new Date(today);
   minDate.setFullYear(minDate.getFullYear() - dtoIn.age.min);
 
-  // pre istotu unikátne dátumy (testy vyžadujú rôzne birthdate)
   const usedTimestamps = new Set();
 
   for (let i = 0; i < count; i++) {
@@ -117,7 +114,6 @@ export function getEmployeeStatistics(employees) {
   for (let i = 0; i < employees.length; i++) {
     const e = employees[i];
 
-    // vek v rokoch – rovnaký vzorec ako v HelperFunctions.assertStatistics
     const age =
       (now - new Date(e.birthdate)) / (1000 * 60 * 60 * 24 * 365.25);
 
@@ -176,10 +172,6 @@ export function getEmployeeStatistics(employees) {
 }
 
 /**
- * Hlavná funkcia podľa zadania:
- * - vygeneruje zamestnancov
- * - spočíta štatistiky
- * - vráti dtoOut v požadovanej štruktúre
  * @param {{count:number, age:{min:number,max:number}}} dtoIn
  * @returns {object}
  */
