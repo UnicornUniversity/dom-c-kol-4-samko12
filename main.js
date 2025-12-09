@@ -18,6 +18,7 @@ const genders = ["male", "female"];
 const workloads = [10, 20, 30, 40];
 
 /**
+ * Vypočítanie mediánu čísel.
  * @param {number[]} numbers
  * @returns {number}
  */
@@ -172,6 +173,7 @@ export function getEmployeeStatistics(employees) {
 }
 
 /**
+ * Hlavná funkcia výstupu.
  * @param {{count:number, age:{min:number,max:number}}} dtoIn
  * @returns {object}
  */
