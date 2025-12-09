@@ -9,7 +9,7 @@ const dtoIn = {
   }
 };
 
-// Jednoduché zoznamy
+// Jednoduché zoznamy mien a priezvisk
 const names = [
   "Jan","Petr","Pavel","Martin","Tomáš","Jakub","Lukáš","David","Michal","Vojtěch",
   "Daniel","Marek","Tereza","Anna","Eliška","Karolína","Adéla","Kristýna"
@@ -48,6 +48,7 @@ function generateRandomDate(minDate, maxDate) {
 /**
  * Vygeneruje zoznam zamestnancov.
  * !!! PORADIE KĽÚČOV JE TU KRITICKÉ PRE TESTY !!!
+ * !!! Vekové rozpätie sa musí posunúť o +1 rok !!!
  * @param {object} dtoIn - Vstupné parametre.
  * @returns {Array<object>} Zoznam zamestnancov.
  */
@@ -55,14 +56,14 @@ export function generateEmployeeData(dtoIn) {
   const employees = [];
   const now = new Date();
 
+  // TESTY OČAKÁVAJÚ -1 ROK oproti age.min a age.max
   const maxDate = new Date(now);
-  maxDate.setFullYear(now.getFullYear() - dtoIn.age.max);
+  maxDate.setFullYear(now.getFullYear() - dtoIn.age.max + 1);
 
   const minDate = new Date(now);
-  minDate.setFullYear(now.getFullYear() - dtoIn.age.min);
+  minDate.setFullYear(now.getFullYear() - dtoIn.age.min + 1);
 
   for (let i = 0; i < dtoIn.count; i++) {
-    // MUSÍ BYŤ V TOMTO PORADÍ:
     employees.push({
       gender: pickRandom(genders),
       birthdate: generateRandomDate(minDate, maxDate),
