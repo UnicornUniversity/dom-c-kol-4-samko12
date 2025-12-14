@@ -138,7 +138,7 @@ export function getEmployeeStatistics(employees) {
   }
 
   const averageAgeReal = sumAge / employees.length;
-  const averageAge = Number(averageAgeReal.toFixed(1)); // 1 desatinné miesto
+  const averageAge = Number(averageAgeReal.toFixed(1));
 
   const minAge = Math.floor(minAgeReal);
   const maxAge = Math.floor(maxAgeReal);
